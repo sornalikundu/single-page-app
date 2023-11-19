@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('singlePage');
 });
+Route::get('/list', [\App\Http\Controllers\SinglePageController::class, 'index'])->name('list');
+Route::post('/add-user', [\App\Http\Controllers\SinglePageController::class, 'addUser'])->name('adduser');
+Route::get('/list-data', [\App\Http\Controllers\SinglePageController::class, 'listData'])->name('listdata');
