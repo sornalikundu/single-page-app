@@ -36,5 +36,67 @@
 <script>
     var table = $('#example').DataTable({
         'processing': false,
+        "searching": false,
+        "dom": 'rtip',
+        columnDefs: [{
+            orderable: false,
+            targets: [2, 3, 4, 5]
+        }]
     });
+
+    function deleteUser(id) {
+        if (confirm("Are yor sure you want to delete?")) {
+            $.ajax({
+                url: "{{ route('deleteuser') }}",
+                method: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    'id': id
+                },
+                success: function(data) {
+                    // console.log(data);
+                    call_datatable();
+                }
+            });
+        }
+    }
+
+    function showModal(id) {
+        // you can do anything with data, or pass more data to this function.
+        // $("#myModal .modal-title").html(data)
+        $.ajax({
+            url: "{{ route('viewuser') }}",
+            method: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                'id': id
+            },
+            success: function(data) {
+                // console.log(data);
+                $('#idModal').html('');
+                $('#idModal').html(data);
+                $("#exampleModal").modal();
+            }
+        });
+    }
+
+    function editUser(id) {
+        $.ajax({
+            url: "{{ route('edituser') }}",
+            method: "POST",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                'id': id
+            },
+            success: function(data) {
+                console.log(data);
+                $('#edit_user_id').val(data.id);
+                $('#fname').val(data.fname);
+                $('#address').val(data.address);
+                $('input[name=gender][value="' + data.gender + '"]').prop("checked", true);
+
+                // call_datatable();
+            }
+        });
+    }
 </script>

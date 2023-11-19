@@ -19,3 +19,6 @@ Route::get('/', function () {
 Route::get('/list', [\App\Http\Controllers\SinglePageController::class, 'index'])->name('list');
 Route::post('/add-user', [\App\Http\Controllers\SinglePageController::class, 'addUser'])->name('adduser');
 Route::get('/list-data', [\App\Http\Controllers\SinglePageController::class, 'listData'])->name('listdata');
+Route::post('/delete-user', [\App\Http\Controllers\SinglePageController::class, 'deleteUser'])->name('deleteuser');
+Route::post('/view-user', [\App\Http\Controllers\SinglePageController::class, 'viewUser'])->name('viewuser');
+Route::post('/edit-user', [\App\Http\Controllers\SinglePageController::class, 'editUser'])->name('edituser');
